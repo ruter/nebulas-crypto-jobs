@@ -67,6 +67,8 @@ class JobContract {
         }
         this.size++;
         let job = {
+            hash: Blockchain.transaction.hash,
+            publisher: Blockchain.transaction.from,
             title: detail.title,
             link: detail.link,
             location: detail.location,
@@ -93,10 +95,16 @@ class JobContract {
         }
         this.carouselSize++;
         let carousel = {
+            hash: Blockchain.transaction.hash,
+            publisher: Blockchain.transaction.from,
             link: detail.link,
             image: detail.image
         };
         this.carousel.put(this.carouselSize, carousel);
+        Event.Trigger('createJob', {
+            id: id,
+            hash: Blockchain.transaction.hash
+        });
     }
 
     deleteCarousel(id) {
