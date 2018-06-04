@@ -27,16 +27,16 @@
     }
 </style>
 <template>
-    <div class="index">
-        <Row type="flex" justify="center" align="middle">
-            <Col span="12">
-                <div class="mb32" style="text-align: center">
-                    <Input v-model="keyword" size="large" placeholder="请输入要查找的打卡目标唯一 ID...">
-                        <Button slot="append" @click.native="handleSearchClick">搜索</Button>
-                    </Input>
-                </div>
-            </Col>
-        </Row>
+    <div class="index" style="min-height: 640px;">
+        <!--<Row type="flex" justify="center" align="middle">-->
+            <!--<Col span="12">-->
+                <!--<div class="mb32" style="text-align: center">-->
+                    <!--<Input v-model="keyword" size="large" placeholder="请输入要查找的打卡目标唯一 ID...">-->
+                        <!--<Button slot="append" @click.native="handleSearchClick">搜索</Button>-->
+                    <!--</Input>-->
+                <!--</div>-->
+            <!--</Col>-->
+        <!--</Row>-->
         <Row type="flex" justify="center" align="middle" class="mb32">
             <Col span="12">
                 <Carousel autoplay :autoplay-speed="2500" loop>
@@ -47,12 +47,19 @@
                             </a>
                         </div>
                     </CarouselItem>
-                    <!--<CarouselItem v-for="idx in (6 - carousels.length)" :key="idx">-->
-                        <!--<div class="carousel-item">-->
-                            <!--<p>虚位以待</p>-->
-                        <!--</div>-->
-                    <!--</CarouselItem>-->
+                    <CarouselItem v-for="idx in (6 - carousels.length)" :key="idx">
+                        <div class="carousel-item">
+                            <p>虚位以待</p>
+                        </div>
+                    </CarouselItem>
                 </Carousel>
+            </Col>
+        </Row>
+        <Row type="flex" justify="center" align="middle" class="mb32">
+            <Col span="12">
+                <div class="text-center">
+                    <h2>当前共有 <span style="color: #0095ff;">{{ total }}</span> 个职位</h2>
+                </div>
             </Col>
         </Row>
         <Row type="flex" justify="center" align="middle" v-for="(job, idx) in jobs" :key="job.hash">
@@ -68,25 +75,23 @@
                         <span class="mr8"><em class="job-req">经验：</em> {{ job.exp }}</span>
                         <span class="mr8"><em class="job-req">学历： </em>{{ job.edu }}</span>
                         <br>
-                        <span><em class="job-req">职位诱惑：</em>发展前景</span>
-                        <br>
                         <span>{{ job.datetime }}</span>
                     </Col>
                     <Col span="12">
                         <div class="job-title">
                             <a :href="job.website" target="_blank">{{ job.company }}</a>
                         </div>
-                        <span class="mr8"><em class="job-req">领域：</em> 移动互联网</span>
+                        <span class="mr8"><em class="job-req">领域：</em> {{ job.domain }}</span>
                         <span class="mr8"><em class="job-req">创始人：</em>XXX</span>
                         <br>
-                        <span class="mr8"><em class="job-req">阶段：</em> 初创型(天使轮)</span>
-                        <span class="mr8"><em class="job-req">规模：</em>少于15人</span>
+                        <span class="mr8"><em class="job-req">阶段：</em> {{ job.phase }}</span>
+                        <span class="mr8"><em class="job-req">规模：</em>{{ job.scale }}</span>
                     </Col>
                 </Row>
             </Col>
         </Row>
 
-        <Row type="flex" justify="center" align="middle">
+        <Row type="flex" justify="center" align="middle" v-if="total > limit">
             <Col span="12">
                 <Page :total="total" :current="page" :page-size="limit" @change="handlePageChange"></Page>
             </Col>
@@ -141,6 +146,7 @@
                 }).then((resp) => {
                     let data = util.parse(resp.result);
                     this.jobs = data.jobs;
+                    this.total = data.size;
                     this.loading = false;
                 });
             },

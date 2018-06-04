@@ -52,7 +52,11 @@ class JobContract {
     }
 
     getCarousel() {
-        return this.carousel
+        const carousel = this.carousel;
+        let keys = Object.keys(carousel);
+        return keys.map((item) => {
+            return carousel[item];
+        });
     }
 
     getJobPostBy() {
@@ -119,12 +123,20 @@ class JobContract {
         }
     }
 
+    getNormalFee() {
+        return this.normalFee
+    }
+
     setNormalFee(value) {
         if (Blockchain.transaction.from === this.admin) {
             this.normalFee = new BigNumber(value);
         } else {
             throw new Error("Permission Denied");
         }
+    }
+
+    getCarouselFee() {
+        return this.carouselFee
     }
 
     setCarouselFee(value) {

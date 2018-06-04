@@ -84,7 +84,7 @@
             handleCreate() {
                 let to = util.getContractAddress(),
                     args = util.toSting([this.job]);
-                nebPay.call(to, Unit.toBasic(0.1), 'createCarousel', args, {
+                nebPay.call(to, 0.1, 'createCarousel', args, {
                     listener: (data) => {
                         if (typeof data === 'object') {
                             // todo

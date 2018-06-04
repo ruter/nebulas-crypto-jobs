@@ -10,7 +10,12 @@
             <Form ref="job" :model="job" :rules="ruleValidate" :label-width="80">
                 <FormItem label="职位类别" prop="category">
                     <Select v-model="job.category" placeholder="请选择职位类别">
-                        <Option value="item.value" key="item.value">item.label</Option>
+                        <Option value="技术">技术</Option>
+                        <Option value="产品">产品</Option>
+                        <Option value="设计">设计</Option>
+                        <Option value="运营">运营</Option>
+                        <Option value="市场与销售">市场与销售</Option>
+                        <Option value="职能">职能</Option>
                     </Select>
                 </FormItem>
                 <FormItem label="职位名称" prop="title">
@@ -37,12 +42,21 @@
                 </FormItem>
                 <FormItem label="工作经验" prop="exp">
                     <Select v-model="job.exp" placeholder="请选择工作经验">
-                        <Option value="item.value" key="item.value">item.label</Option>
+                        <Option value="不限">不限</Option>
+                        <Option value="应届毕业生">应届毕业生</Option>
+                        <Option value="1年以下">1年以下</Option>
+                        <Option value="1-3年">1-3年</Option>
+                        <Option value="3-5年">3-5年</Option>
+                        <Option value="5-10年">5-10年</Option>
                     </Select>
                 </FormItem>
                 <FormItem label="学历要求" prop="edu">
                     <Select v-model="job.edu" placeholder="请选择最低学历">
-                        <Option value="item.value" key="item.value">item.label</Option>
+                        <Option value="不限">不限</Option>
+                        <Option value="大专">大专</Option>
+                        <Option value="本科">本科</Option>
+                        <Option value="硕士">硕士</Option>
+                        <Option value="博士">博士</Option>
                     </Select>
                 </FormItem>
                 <FormItem label="详情链接">
@@ -171,10 +185,16 @@
             handleCreate() {
                 let to = util.getContractAddress(),
                     args = util.toSting([this.job]);
-                nebPay.call(to, Unit.toBasic(0.001), 'createJob', args, {
+                nebPay.call(to, 0.001, 'createJob', args, {
                     listener: (data) => {
                         if (typeof data === 'object') {
-                            // todo
+                            this.$Modal.success({
+                                title: '发布成功',
+                                content: '职位信息将会在稍候出现在首页上',
+                                onOk: () => {
+                                    this.$router.push('/');
+                                },
+                            })
                         } else {
                             this.$Modal.error({
                                 title: '创建失败',
