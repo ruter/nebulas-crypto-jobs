@@ -75,8 +75,7 @@
 <script>
     import util from '../libs/util';
     import NebPay from '../libs/nebpay';
-    import BigNumber from 'bignumber.js';
-    import {Account} from 'nebulas';
+    import {Account, Unit} from 'nebulas';
 
     let nebPay = new NebPay();
 
@@ -169,11 +168,10 @@
                     }
                 });
             },
-            handleCreate(info, value) {
+            handleCreate() {
                 let to = util.getContractAddress(),
-                    args = util.toSting([info]),
-                    amount = value ? new BigNumber(value) : '0';
-                nebPay.call(to, amount, 'create', args, {
+                    args = util.toSting([this.job]);
+                nebPay.call(to, Unit.toBasic(0.001), 'createJob', args, {
                     listener: (data) => {
                         if (typeof data === 'object') {
                             // todo

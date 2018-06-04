@@ -11,11 +11,11 @@ const routers = [{
     },
     component: (resolve) => require(['./views/create.vue'], resolve)
 }, {
-    path: '/detail/:hash',
+    path: '/carousel',
     meta: {
-        title: '打卡详情'
+        title: '首页轮播'
     },
-    component: (resolve) => require(['./views/detail.vue'], resolve)
+    component: (resolve) => require(['./views/carousel.vue'], resolve)
 }, {
     path: '/account',
     meta: {

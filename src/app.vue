@@ -101,15 +101,27 @@
                                 首页
                             </MenuItem>
                         </router-link>
-                        <router-link to="/create">
-                            <MenuItem name="create">
-                                <Icon type="planet"></Icon>
-                                发布职位
-                            </MenuItem>
-                        </router-link>
+                        <Submenu name="3">
+                            <template slot="title">
+                                <Icon type="paper-airplane"></Icon>
+                                创建
+                            </template>
+                            <router-link to="/create">
+                                <MenuItem name="create">
+                                    <Icon type="coffee"></Icon>
+                                    发布职位
+                                </MenuItem>
+                            </router-link>
+                            <router-link to="/carousel">
+                                <MenuItem name="carousel">
+                                    <Icon type="images"></Icon>
+                                    首页轮播
+                                </MenuItem>
+                            </router-link>
+                        </Submenu>
                         <router-link to="/account">
                             <MenuItem name="account">
-                                <Icon type="cash"></Icon>
+                                <Icon type="cube"></Icon>
                                 个人中心
                             </MenuItem>
                         </router-link>
