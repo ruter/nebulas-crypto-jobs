@@ -70,7 +70,7 @@ class JobContract {
             hash: Blockchain.transaction.hash,
             publisher: Blockchain.transaction.from,
             title: detail.title,
-            link: detail.link,
+            link: detail.link || '#',
             location: detail.location,
             type: detail.type,
             category: detail.category,
@@ -78,7 +78,10 @@ class JobContract {
             exp: detail.exp,
             edu: detail.edu,
             company: detail.company,
-            website: detail.website,
+            website: detail.website || '#',
+            domain: detail.domain,
+            scale: detail.scale,
+            phase: detail.phase,
             datetime: new Date()
         };
         this.jobs.put(this.size, job);

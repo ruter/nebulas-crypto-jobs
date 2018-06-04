@@ -7,7 +7,7 @@ const routers = [{
 }, {
     path: '/create',
     meta: {
-        title: '新建打卡'
+        title: '发布职位'
     },
     component: (resolve) => require(['./views/create.vue'], resolve)
 }, {

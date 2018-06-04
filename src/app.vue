@@ -101,8 +101,8 @@
                                 首页
                             </MenuItem>
                         </router-link>
-                        <router-link to="/job">
-                            <MenuItem name="home">
+                        <router-link to="/create">
+                            <MenuItem name="create">
                                 <Icon type="planet"></Icon>
                                 发布职位
                             </MenuItem>
